@@ -137,6 +137,9 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 #EMAIL USE_SSL = False
 
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Jazzmin settings
 JAZZMIN_SETTINGS = {

@@ -42,6 +42,6 @@ def property_type(request):
 def testimonial(request):
     return render(request, 'testimonial.html')
 
-
-
+def set_language(request):
+    return render(request, 'set_language.html')
 
