@@ -32,16 +32,15 @@
         </ul> 
       {% endif %}
 
-    <div class="form"> 
-
+    <form class="form" method="post" action=""> 
+      {% csrf_token %}
       <div class="inputBox"> 
-       <input type="text" required> <i>Username</i> 
+       <input type="text" name="username" id="id_username" required> <i>Username</i> 
       </div> 
 
       <div class="inputBox"> 
-       <input type="password" required> <i>Password</i> 
+       <input type="password" name="password" id="id_password1" required> <i>Password</i> 
       </div> 
-
       
       <div class="inputBox"> 
         <input type="submit" value="Login"> 
@@ -51,7 +50,7 @@
         <!--<a href="#">Forgot Password</a>-->
         <p>Don't have an account?<a class="links" href="/signup.html"> Signup</a></p>
       </div> 
-    </div> 
+    </form> 
 
     </div> 
 

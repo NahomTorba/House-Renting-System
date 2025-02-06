@@ -59,11 +59,11 @@ def Login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect('/index.html/')
+            return redirect('/index.html')
         else:
             messages.error(request, 'Username or Password is incorrect')
     return render(request, 'Login.html')
@@ -87,7 +87,7 @@ def signup(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                return redirect('/Login.html/')
+                return redirect('/Login.html')
         else:
             messages.error(request, 'Passwords do not match')
 

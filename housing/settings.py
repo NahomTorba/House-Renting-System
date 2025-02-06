@@ -153,7 +153,7 @@ MESSAGE_TAGS = {
 
 # login/ logout redirect
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Jazzmin settings
 JAZZMIN_SETTINGS = {
