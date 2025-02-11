@@ -52,6 +52,21 @@
                     </div>
                     <h1 class="m-0 text-primary">Delala</h1>
                 </a>
+
+                <div>
+                    {% if user.is_authenticated %}
+                        <span class="btn btn-primary px-3">Welcome, {{ user.username }}</span>
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" href="{% url 'logout' %}" class="btn btn-primary px-3">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary px-3 me-3">login</a>
+                        <a href="{% url 'signup' %}" class="btn btn-primary px-3">Signup</a>
+                    {% endif %}    
+
+                </div>
+
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -71,7 +86,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="signup.html" class="dropdown-item">SignUp</a>
-                                <a href="Login.html" class="dropdown-item">Login</a>
+                                <a href="login.html" class="dropdown-item">login</a>
                                 
                             </div>
                         </div>

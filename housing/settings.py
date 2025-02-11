@@ -223,6 +223,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
     ],
+    'show_user': True,
 
     #############
     # Side Menu #

@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 from .models import *
 from django.contrib import messages  # Import messages to use Django's messages framework
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-# web pages below here.
 def index(request): 
     return render(request, 'index.html')
 
@@ -39,8 +39,10 @@ def about(request):
 def property_agent(request):
     return render(request, 'property-agent.html')
 
+@login_required(login_url='/Login.html')
 def property_list(request):
-    return render(request, 'property-list.html')
+    properties = Property.objects.all()
+    return render(request, 'property-list.html', {'properties': properties})
 
 def property_type(request):
     return render(request, 'property-type.html')
@@ -66,7 +68,7 @@ def Login(request):
             return redirect('/index.html')
         else:
             messages.error(request, 'Username or Password is incorrect')
-    return render(request, 'Login.html')
+    return render(request, 'login.html')
 
 def signup(request):
     if request.method == "POST":
@@ -92,4 +94,9 @@ def signup(request):
             messages.error(request, 'Passwords do not match')
 
     return render(request, 'signup.html')
+
+def logout(request):
+    return render(request, 'logout.html')
+
+
 

@@ -71,7 +71,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="signup.html" class="dropdown-item">SignUp</a>
-                                <a href="Login.html" class="dropdown-item">Login</a>
+                                <a href="login.html" class="dropdown-item">login</a>
                                 
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                     <div class="col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.5s">
                             <h3 class="mb-3">Get In Touch </h3>
-                            <p class="mb-4"> Send us an email.</p>
+                            
 
                             {% if user_name %}
                              <center>    
@@ -175,6 +175,7 @@
                             <br/><br/><br/>    
                             {% else %}
                             <form action="{% url 'contact' %}" method="post">
+                                <p class="mb-4"> Send us an email.</p>
                                 {% csrf_token %}
                                 <div class="row g-3">
                                     <div class="col-md-6">
