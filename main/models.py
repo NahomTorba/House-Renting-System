@@ -22,24 +22,23 @@ class Property(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=122)
     description = models.TextField()
-    image = models.ImageField(upload_to='property_images')
-    bedrooms = models.IntegerField()
-    bathrooms = models.IntegerField()
-    price = models.IntegerField()
+    image = models.ImageField(upload_to='property_images' , default='\static\website\img\logo.jpg')
+    bedrooms = models.IntegerField(default=0)
+    bathrooms = models.IntegerField(default=0)
+    price = models.IntegerField(default=0)
+    area = models.IntegerField(default=0)
     location = models.CharField(max_length=122)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    #latitude = models.FloatField(default=0)
+    #longitude = models.FloatField(default=0)
 
     def __str__(self):
         return self.title
 
 
-class propertyForm(forms.ModelForm):
+class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['title', 'description', 'image', 'bedrooms', 'bathrooms', 'price', 'location', 'latitude', 'longitude']
+        fields = ['title', 'description', 'image', 'bedrooms', 'bathrooms', 'price', 'area', 'location']
 
-    def __str__(self):
-        return self.title
 
     

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import *
+from .models import PropertyForm, Property
 from django.contrib import messages  # Import messages to use Django's messages framework
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -39,13 +39,15 @@ def about(request):
 def property_agent(request):
     return render(request, 'property-agent.html')
 
-@login_required(login_url='/Login.html')
+@login_required(login_url='login')
 def property_list(request):
     properties = Property.objects.all()
+    print("Properties: ", properties)
     return render(request, 'property-list.html', {'properties': properties})
 
+@login_required(login_url='login')
 def property_type(request):
-    return render(request, 'property-type.html')
+    return render(request, 'property-type.html',)
 
 def testimonial(request):
     return render(request, 'testimonial.html')
@@ -95,8 +97,20 @@ def signup(request):
 
     return render(request, 'signup.html')
 
-def logout(request):
-    return render(request, 'logout.html')
-
-
-
+@login_required(login_url='login')
+def add_property(request):
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES)
+        if form.is_valid():
+            property = form.save(commit=False)
+            property.user = request.user
+            property.save()
+            print("Property saved successfully")
+            return redirect('property-list')
+        else:
+            print("Form is not valid")
+            print(form.errors)
+            return render(request, 'add_property.html', {'form': form})
+    else:
+        form = PropertyForm()
+        return render(request, 'add_property.html', {'form': form})

@@ -46,7 +46,7 @@
         <!-- Navbar Start -->
         <div class="container-fluid nav-bar bg-transparent">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
-                <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center text-center">
                     <div class="icon p-2 me-2">
                         <img class="img-fluid" src="{% static 'website/img/icon-deal.png' %}" alt="Icon" style="width: 30px; height: 30px;">
                     </div>
@@ -64,7 +64,6 @@
                         <a href="{% url 'login' %}" class="btn btn-primary px-3 me-3">login</a>
                         <a href="{% url 'signup' %}" class="btn btn-primary px-3">Signup</a>
                     {% endif %}    
-
                 </div>
 
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -72,28 +71,28 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Property</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="property-list.html" class="dropdown-item">Property List</a>
-                                <a href="property-type.html" class="dropdown-item">Property Type</a>
+                                <a href="{% url 'property-list' %}" class="dropdown-item">Property List</a>
+                                <a href="{% url 'property-type' %}" class="dropdown-item">Property Type</a>
                                <!--<a href="property-agent.html" class="dropdown-item">Property Agent</a> -->  
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="signup.html" class="dropdown-item">SignUp</a>
-                                <a href="login.html" class="dropdown-item">login</a>
+                                <a href="{% url 'signup' %}" class="dropdown-item">SignUp</a>
+                                <a href="{% url 'login' %}" class="dropdown-item">login</a>
                                 
                             </div>
                         </div>
                         
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="signup.html" class="btn btn-primary px-3 d-none d-lg-flex">Add Property</a>
+                    <a href="{% url 'add_property' %}" class="btn btn-primary px-3 d-none d-lg-flex">Add Property</a>
                 </div>
             </nav>
         </div>
@@ -431,7 +430,7 @@
                                 </div>
                             </div>
                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                                <a class="btn btn-primary py-3 px-5" href="property-list.html">Browse More Property</a>
+                                <a class="btn btn-primary py-3 px-5" href="{% url 'property-list' %}">Browse More Property</a>
                             </div>
                         </div>
                     </div>
@@ -779,11 +778,11 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link text-white-50" href="about.html">About Us</a>
-                        <a class="btn btn-link text-white-50" href="contact.html">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="404.html">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="404.html">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="404.html">Terms & Condition</a>
+                        <a class="btn btn-link text-white-50" href="{% url 'about' %}">About Us</a>
+                        <a class="btn btn-link text-white-50" href="{% url 'contact' %}">Contact Us</a>
+                        <a class="btn btn-link text-white-50" href="{% url '404' %}">Our Services</a>
+                        <a class="btn btn-link text-white-50" href="{% url '404' %}">Privacy Policy</a>
+                        <a class="btn btn-link text-white-50" href="{% url '404' %}">Terms & Condition</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Photo Gallery</h5>
@@ -829,10 +828,10 @@
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
-                                <a href="index.html">Home</a>
-                                <a href="404.html">Cookies</a>
-                                <a href="404.html">Help</a>
-                                <a href="404.html">FQAs</a>
+                                <a href="{% url 'index' %}">Home</a>
+                                <a href="{% url '404' %}">Cookies</a>
+                                <a href="{% url '404' %}">Help</a>
+                                <a href="{% url '404' %}">FQAs</a>
                             </div>
                         </div>
                     </div>
