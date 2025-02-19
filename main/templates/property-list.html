@@ -210,6 +210,16 @@
                                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i> {{ property.bedrooms }} Bedrooms</small>
                                             <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i> {{ property.bathrooms }} Bathrooms</small>
                                         </div>
+                                        <div class="d-flex justify-content-between p-2">
+                                            {% if user.is_authenticated and user == property.user %}
+                                            <a href="{% url 'edit_property' property.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="d-flex justify-content-between p-2">
+                                            {% if user.is_authenticated and user == property.user %}
+                                            <a href="{% url 'delete_property' property.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             {% endfor %}

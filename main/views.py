@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import PropertyForm, Property
+from .models import PropertyForm, Property, SignUpForm
 from django.contrib import messages  # Import messages to use Django's messages framework
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -149,3 +150,25 @@ def add_property(request):
     else:
         form = PropertyForm()
         return render(request, 'add_property.html', {'form': form})
+
+@login_required(login_url='login')
+def edit_property(request, property_id):
+    property_obj = get_object_or_404(Property, id=property_id, user=request.user)
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES, instance=property_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('property-list')
+    else:
+        form = PropertyForm(instance=property_obj)
+    
+    return render(request, 'edit_property.html', {'form': form, 'property': property_obj})
+
+@login_required(login_url='login')
+def delete_property(request, property_id):
+    property_obj = get_object_or_404(Property, id=property_id, user=request.user)
+    if request.method == 'POST':
+        property_obj.delete()
+        return redirect('property-list')
+
+    return render(request, 'delete_property.html', {'property': property_obj})

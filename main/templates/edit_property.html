@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'website/css/style1.css' %}">
+    <link href="{% static 'website/img/icon-deal.png' %}" rel="icon">
+    <title>Edit-property</title>
+</head>
+
+<body>
+<section>
+<div class="signin">
+ <div class="content">
+    <h2>Edit Property</h2>
+    <div>
+        <h4>Property: "{{ property.title }}"</h4>
+        <p>Once you edit this property, it cannot be undone.</p>
+        <p>Make the changes on your property below</p>
+    </div>
+    
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="inputBox">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="property_type">Property Type</label>
+            <select name="property_type" id="property_type" required>
+                <option value="villa">Villa</option>
+                <option value="apartment">Apartment</option>
+                <option value="office">Office</option>
+            </select>
+        </div>
+
+        <div class="inputBox">
+            <label for="property_for">Property For</label>
+            <select name="property_for" id="property_for" required>
+                <option value="rent">For Rent</option>
+                <option value="sale">For Sale</option>
+            </select>
+        </div>
+
+        <div class="inputBox">
+            <label for="bedrooms">Bedrooms</label>
+            <input type="number" name="bedrooms" id="bedrooms" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="bathrooms">Bathrooms</label>
+            <input type="number" name="bathrooms" id="bathrooms" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="area">Area</label>
+            <input type="number" name="area" id="area" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" required>
+        </div>
+
+        <div class="inputBox">
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Property</button>
+        <a href="{% url 'property-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+ </div>
+</div>
+</section>
+</body>
+</html>
