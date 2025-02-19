@@ -25,14 +25,6 @@
 
      <h2>Sign up</h2> 
 
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-
     <form method="post" action="" class="form">
       {% csrf_token %}
       
@@ -59,6 +51,14 @@
       <div class="inputBox"> 
        <input type="password" name="password2" id="id_password2" required> <i>Confirm Password</i>
       </div>
+
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
       <div class="inputBox"> 
        <input type="submit" value="Sign up"></input> 

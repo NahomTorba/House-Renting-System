@@ -223,6 +223,11 @@
                                     </div>
                                 </div>
                             {% endfor %}
+                            {% if no_results %}
+                                <div class="alert alert-warning text-center" role="alert">
+                                    <strong>No properties found!</strong> Try adjusting your search filters.
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">

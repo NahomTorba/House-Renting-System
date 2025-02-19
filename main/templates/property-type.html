@@ -122,41 +122,39 @@
 
         <!-- Search Start -->
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-            <div class="container">
+            <form class="container" method="GET" action="{% url 'property-list' %}">
                 <div class="row g-2">
                     <div class="col-md-10">
                         <div class="row g-2">
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Price Range</option>
-                                    <option value="1">1,000,000 ETB - 2,000,000 ETB</option>
-                                    <option value="2">2,000,000 ETB - 3,000,000 ETB</option>
-                                    <option value="3">3,000,000 ETB - 4,000,000 ETB</option>
+                            <div class="col-md-3">
+                                <input type="number" name="price_min" value="price_min" class="form-control border-0 py-3" placeholder="Min Price ETB">
+                                <input type="number" name="price_max" value="price_max" class="form-control border-0 py-3" placeholder="Max Price ETB">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="property_type" class="form-select border-0 py-3">
+                                    <option value="">All Property Types</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="office">Office</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Property Types</option>
-                                    <option value="1">Apartment</option>
-                                    <option value="2">Villa</option>
-                                    <option value="3">Office</option>
+                            <div class="col-md-3">
+                                <select name="property_for" class="form-select border-0 py-3">
+                                    <option value="">All Property For Sale and Rent</option>
+                                    <option value="sale">For Sale</option>
+                                    <option value="rent">For Rent</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Location</option>
-                                    <option value="1">Bole Bulbula</option>
-                                    <option value="2">Summit</option>
-                                    <option value="3">CMC</option>
-                                </select>
+                            <div class="col-md-3">
+                                <input type="text" name="location" class="form-control border-0 py-3" placeholder="Location">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100 py-3">Search</button>
+                        <button type="submit" class="btn btn-dark border-0 w-100 py-3">Search</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- Search End -->
 
@@ -166,11 +164,11 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Property Types</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p>From the variety of properties we offer you can look up for your preferd one down below</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                        <a class="cat-item d-block bg-light text-center rounded p-3" href="{% url 'property-list' %}?property_type=apartment">
                             <div class="rounded p-4">
                                 <div class="icon mb-3"> 
                                     <img class="img-fluid" src="{% static 'website/img/icon-apartment.png' %}" alt="Icon">
@@ -181,7 +179,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                        <a class="cat-item d-block bg-light text-center rounded p-3" href="{% url 'property-list' %}?property_type=villa">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
                                     <img class="img-fluid" src="{% static 'website/img/icon-villa.png' %}" alt="Icon">
@@ -192,7 +190,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                        <a class="cat-item d-block bg-light text-center rounded p-3" href="{% url 'property-list' %}?property_type=''">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
                                     <img class="img-fluid" src="{% static 'website/img/icon-house.png' %}" alt="Icon">
@@ -203,7 +201,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                        <a class="cat-item d-block bg-light text-center rounded p-3" href="{% url 'property-list' %}?property_type=office">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
                                     <img class="img-fluid" src="{% static 'website/img/icon-housing.png' %}" alt="Icon">
@@ -213,7 +211,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <!--<div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
@@ -256,7 +254,7 @@
                                 <span>123 Properties</span>
                             </div>
                         </a>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

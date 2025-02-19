@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.core.mail import send_mail
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import PropertyForm, Property, SignUpForm
 from django.contrib import messages  # Import messages to use Django's messages framework
@@ -51,14 +52,6 @@ def property_list(request):
     price_min = request.GET.get('price_min', '').strip()
     price_max = request.GET.get('price_max', '').strip()
 
-    print("debugging - filters received:",{
-        'property_type': property_type,
-        'property_for': property_for,
-        'location': location,
-        'price_min': price_min,
-        'price_max': price_max
-    })
-
     #applying the filters for property_type
     if property_type and property_type in dict(Property.PROPERTY_TYPES):
         properties = properties.filter(property_type=property_type)
@@ -77,9 +70,9 @@ def property_list(request):
     if price_max.isdigit():
         properties = properties.filter(price__lte=int(price_max))
     
-    print("debugging - properties found:", properties)
+    no_results = not properties.exists()
 
-    return render(request, 'property-list.html', {'properties': properties})
+    return render(request, 'property-list.html', {'properties': properties, 'no_results': no_results})
 
 @login_required(login_url='login')
 def property_type(request):
@@ -103,7 +96,7 @@ def Login(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/index.html')
+            return redirect('/index')
         else:
             messages.error(request, 'Username or Password is incorrect')
     return render(request, 'login.html')
@@ -127,7 +120,7 @@ def signup(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                return redirect('/Login.html')
+                return redirect('login.html')
         else:
             messages.error(request, 'Passwords do not match')
 

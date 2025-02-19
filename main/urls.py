@@ -18,7 +18,7 @@ path('property-list/delete/<int:property_id>/', views.delete_property, name='del
 path("testimonial/", views.testimonial, name="testimonial"),
 path("404/", views.not_found, name="404"),
 path("signup/", views.signup, name="signup"),
-path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+path('login/', views.Login, name='login'),
 path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 path('set_language/', set_language, name='set_language'),
 ]
