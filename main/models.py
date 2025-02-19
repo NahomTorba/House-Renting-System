@@ -22,6 +22,10 @@ class Property(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=122)
     description = models.TextField()
+    PROPERTY_TYPES = [('villa', 'Villa'), ('apartment', 'Apartment'), ('office', 'Office') ]
+    PROPERTY_FOR = [('sale', 'Sale'), ('rent', 'Rent')]
+    property_type = models.CharField(max_length=122, choices=PROPERTY_TYPES, default='villa')
+    property_for = models.CharField(max_length=122, choices=PROPERTY_FOR, default='sale')
     image = models.ImageField(upload_to='property_images' , default='\static\website\img\logo.jpg')
     bedrooms = models.IntegerField(default=0)
     bathrooms = models.IntegerField(default=0)
@@ -38,7 +42,7 @@ class Property(models.Model):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['title', 'description', 'image', 'bedrooms', 'bathrooms', 'price', 'area', 'location']
+        fields = ['title', 'description', 'property_type', 'property_for', 'image', 'bedrooms', 'bathrooms', 'price', 'area', 'location']
 
 
     

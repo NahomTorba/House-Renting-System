@@ -7,36 +7,8 @@
     <link rel="stylesheet" href="{% static 'website/css/style1.css' %}">
     <link href="{% static 'website/img/icon-deal.png' %}" rel="icon">
     <title>add-property</title>
-
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
-    <script>
-        function initMap() {
-            var initialLatLng = {lat: -34.397, lng: 150.644}; // Initial coordinates
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: initialLatLng,
-                zoom: 8
-            });
-
-            var marker = new google.maps.Marker({
-                position: initialLatLng,
-                map: map,
-                draggable: true
-            });
-
-            google.maps.event.addListener(marker, 'position_changed', function() {
-                var lat = marker.getPosition().lat();
-                var lng = marker.getPosition().lng();
-                document.getElementById('id_latitude').value = lat;
-                document.getElementById('id_longitude').value = lng;
-            });
-
-            // Set initial values
-            document.getElementById('id_latitude').value = initialLatLng.lat;
-            document.getElementById('id_longitude').value = initialLatLng.lng;
-        }
-    </script>-->
-
 </head>
+
 <body>
 <section>
 <div class="signin">
@@ -59,9 +31,17 @@
         <div class="inputBox">
             <label for="property_type">Property Type</label>
             <select name="property_type" id="property_type" required>
-                <option value="House">House</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Office">Office</option>
+                <option value="villa">Villa</option>
+                <option value="apartment">Apartment</option>
+                <option value="office">Office</option>
+            </select>
+        </div>
+
+        <div class="inputBox">
+            <label for="property_for">Property For</label>
+            <select name="property_for" id="property_for" required>
+                <option value="rent">For Rent</option>
+                <option value="sale">For Sale</option>
             </select>
         </div>
 
