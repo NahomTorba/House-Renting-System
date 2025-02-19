@@ -42,7 +42,42 @@ def property_agent(request):
 @login_required(login_url='login')
 def property_list(request):
     properties = Property.objects.all()
-    print("Properties: ", properties)
+    
+    #get filter values from the request
+    property_type = request.GET.get('property_type', '').strip()
+    property_for = request.GET.get('property_for', '').strip()
+    location = request.GET.get('location', '').strip()
+    price_min = request.GET.get('price_min', '').strip()
+    price_max = request.GET.get('price_max', '').strip()
+
+    print("debugging - filters received:",{
+        'property_type': property_type,
+        'property_for': property_for,
+        'location': location,
+        'price_min': price_min,
+        'price_max': price_max
+    })
+
+    #applying the filters for property_type
+    if property_type and property_type in dict(Property.PROPERTY_TYPES):
+        properties = properties.filter(property_type=property_type)
+
+    #applying the filters for property_for
+    if property_for and property_for in dict(Property.PROPERTY_FOR):
+        properties = properties.filter(property_for=property_for)
+
+    #applying the filters for location
+    if location:
+        properties = properties.filter(location__icontains=location)
+
+    #applying the filters for price range
+    if price_min.isdigit():
+        properties = properties.filter(price__gte=int(price_min))
+    if price_max.isdigit():
+        properties = properties.filter(price__lte=int(price_max))
+    
+    print("debugging - properties found:", properties)
+
     return render(request, 'property-list.html', {'properties': properties})
 
 @login_required(login_url='login')
