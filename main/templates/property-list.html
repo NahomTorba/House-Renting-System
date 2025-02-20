@@ -218,6 +218,12 @@
                                         <div class="d-flex justify-content-between p-2">
                                             {% if user.is_authenticated and user == property.user %}
                                             <a href="{% url 'delete_property' property.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="{% url 'view_requests' property.id %}" class="btn btn-link"> View Requests</a>
+                                            {% endif %}
+                                            {% if user.is_authenticated and user != property.user %}
+                                            <div class="btn btn-outline-primary">
+                                                <a href="{% url 'send_request' property.id %}" class="btn btn-primary"> Send a Request </a>
+                                            </div>
                                             {% endif %}
                                         </div>
                                     </div>

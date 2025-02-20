@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'website/css/style1.css' %}">
+    <link href="{% static 'website/img/icon-deal.png' %}" rel="icon">
+    <title>Payment</title>
+</head>
+
+<body>
+<section>
+<div class="signin">
+ <div class="content">
+    <h2>Pay with chapa</h2>
+    <p>let's pray for it to work!</p>
+    <form method="POST" action="https://api.chapa.co/v1/hosted/pay" target="_blank">
+        <input type="hidden" name="public_key" value="CHAPUBK_TEST-q0yTZXjIucvZLqK18AW6xJa6Cfixo1pj" />
+        <input type="hidden" name="tx_ref" id="tx_ref" value="uniqueid" />
+        <input type="hidden" name="amount" value="10" />
+        <input type="hidden" name="currency" value="ETB" />
+        <input type="hidden" name="email" value="israel@gmail.com" />
+        <input type="hidden" name="first_name" value="Israel" />
+        <input type="hidden" name="last_name" value="Goytom" />
+        <input type="hidden" name="title" value="Let us do this" />
+        <input type="hidden" name="description" value="Paying with Confidence with cha" />
+        <input type="hidden" name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" />
+        <!--<input type="hidden" name="callback_url" value="https://example.com/callbackurl" />
+        <input type="hidden" name="return_url" value="https://example.com/returnurl" />-->
+        <input type="hidden" name="meta[title]" value="test" />
+        <button type="submit" onclick="call()">Pay Now</button>
+    </form>
+
+    <script type="text/javascript">
+        var unique = document.getElementById('tx_ref')
+        function call() {
+            var uniqueid = "negade-tx-" + Math.random().toString(16).slice(2)
+            console.log(uniqueid)
+            unique.value = uniqueid
+        }
+    </script>
+    
+ </div>
+</div>
+</section>
+</body>
+</html>

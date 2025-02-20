@@ -4,8 +4,8 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import PropertyForm, Property, SignUpForm
-from django.contrib import messages  # Import messages to use Django's messages framework
+from .models import PropertyForm, Property, SignUpForm, Request
+from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -43,28 +43,28 @@ def property_agent(request):
 
 @login_required(login_url='login')
 def property_list(request):
-    properties = Property.objects.all()
+    properties = Property.objects.filter(available='available')  # Filter to only available properties
     
-    #get filter values from the request
+    # Get filter values from the request
     property_type = request.GET.get('property_type', '').strip()
     property_for = request.GET.get('property_for', '').strip()
     location = request.GET.get('location', '').strip()
     price_min = request.GET.get('price_min', '').strip()
     price_max = request.GET.get('price_max', '').strip()
 
-    #applying the filters for property_type
+    # Applying the filters for property_type
     if property_type and property_type in dict(Property.PROPERTY_TYPES):
         properties = properties.filter(property_type=property_type)
 
-    #applying the filters for property_for
+    # Applying the filters for property_for
     if property_for and property_for in dict(Property.PROPERTY_FOR):
         properties = properties.filter(property_for=property_for)
 
-    #applying the filters for location
+    # Applying the filters for location
     if location:
         properties = properties.filter(location__icontains=location)
 
-    #applying the filters for price range
+    # Applying the filters for price range
     if price_min.isdigit():
         properties = properties.filter(price__gte=int(price_min))
     if price_max.isdigit():
@@ -165,3 +165,83 @@ def delete_property(request, property_id):
         return redirect('property-list')
 
     return render(request, 'delete_property.html', {'property': property_obj})
+
+def chapa(request):
+    return render(request, 'chapa.html')
+
+
+@login_required(login_url='login')
+def view_requests(request, property_id):
+    # Fetch the property object, ensuring that the logged-in user is the owner
+    property_obj = get_object_or_404(Property, id=property_id, user=request.user)
+    
+    # Fetch all requests associated with that property
+    requests = Request.objects.filter(property=property_obj)
+
+    return render(request, 'view_requests.html', {'property': property_obj, 'requests': requests})
+
+@login_required(login_url='login')
+def update_requests(request, request_id):
+    request_instance = get_object_or_404(Request, id=request_id)
+    
+    # Ensure that the logged-in user is the owner of the property associated with the request
+    if request_instance.property.user != request.user:
+        messages.error(request, 'You are not authorized to update this request.')
+        return redirect('property-list')
+
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        if status in ['accepted', 'rejected']:
+            request_instance.status = status
+            request_instance.save()
+            messages.success(request, f'Request status updated to {status.capitalize()}!')
+        else:
+            messages.error(request, 'Invalid status update.')
+
+        return redirect('view_requests', property_id=request_instance.property.id)
+
+    return render(request, 'update_requests.html', {'request': request_instance})
+
+@login_required(login_url='login')
+def delete_request(request, request_id):
+    request_instance = get_object_or_404(Request, id=request_id)
+
+    # Ensure that the request sender is the one trying to delete the request
+    if request_instance.user != request.user:
+        messages.error(request, 'You are not authorized to delete this request.')
+        return redirect('property-list')
+
+    if request.method == 'POST':
+        request_instance.delete()
+        messages.success(request, 'Request deleted successfully!')
+        return redirect('user_requests')  # Redirect to user's requests
+
+    return render(request, 'delete_request.html', {'request': request_instance})
+
+@login_required(login_url='login')
+def user_requests(request):
+    # Fetch all requests made by the logged-in user
+    user_requests = Request.objects.filter(user=request.user)
+
+    return render(request, 'user_requests.html', {'requests': user_requests})
+
+@login_required(login_url='login')
+def send_request(request, property_id):
+    property_obj = get_object_or_404(Property, id=property_id)
+
+    if request.method == 'POST':
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+
+        # Create a new request
+        new_request = Request.objects.create(
+            user=request.user,
+            property=property_obj,
+            description=description,
+            price=price,
+            status='pending'  # Default status
+        )
+        messages.success(request, 'Request sent successfully!')
+        return redirect('user_requests')
+
+    return render(request, 'send_request.html', {'property': property_obj})

@@ -20,5 +20,13 @@ path("404/", views.not_found, name="404"),
 path("signup/", views.signup, name="signup"),
 path('login/', views.Login, name='login'),
 path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+path('chapa/', views.chapa, name='chapa'),
+path('chapa/<int:property_id>/', views.chapa, name='chapa'),
 path('set_language/', set_language, name='set_language'),
+
+path('view_request/<int:property_id>/', views.view_requests, name='view_requests'),
+path('update_requests/<int:request_id>/', views.update_requests, name='update_requests'),
+path('delete_request/<int:request_id>/', views.delete_request, name='delete_request'),
+path('user_request/', views.user_requests, name='user_requests'),
+path('send_request/<int:property_id>/', views.send_request, name='send_request'),
 ]
