@@ -185,12 +185,12 @@
                             {% if user_name %}
                              <center>    
                                 <h2 class="mb-3">Thank You {{user_name}}!</h2>
-                                <p class="mb-4"> We recieved your email and respond shortly...</p>
+                                <p class="mb-4"> We recieved your message and will respond shortly...</p>
                             </center>
                             <br/><br/><br/>    
                             {% else %}
                             <form action="{% url 'contact' %}" method="post">
-                                <p class="mb-4"> Send us an email.</p>
+                                <p class="mb-4"> Send us a message.</p>
                                 {% csrf_token %}
                                 <div class="row g-3">
                                     <div class="col-md-6">
