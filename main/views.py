@@ -120,7 +120,7 @@ def signup(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                return redirect('login.html')
+                return redirect('login')
         else:
             messages.error(request, 'Passwords do not match')
 
