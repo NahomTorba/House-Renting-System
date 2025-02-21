@@ -152,6 +152,8 @@ def edit_property(request, property_id):
         if form.is_valid():
             form.save()
             return redirect('property-list')
+        else:
+            print(form.errors)  # Print errors to the console for debugging
     else:
         form = PropertyForm(instance=property_obj)
     
