@@ -73,3 +73,18 @@ class RequestForm(forms.ModelForm):
     class Meta:
         model = Request
         fields = ['property', 'price', 'description', 'property_for']
+
+
+class UserMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Message from {self.name} - {self.email}'
+
+class UserMessageForm(forms.ModelForm):
+    class Meta:
+        model = UserMessage
+        fields = ['name', 'email', 'message']

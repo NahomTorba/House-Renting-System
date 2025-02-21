@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import PropertyForm, Property, SignUpForm, Request
+from .models import PropertyForm, Property, SignUpForm, Request, UserMessage, UserMessageForm
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -17,23 +17,23 @@ def index(request):
     return render(request, 'index.html')
 
 def contact(request):
-    if request.method == "POST":
-        user_name = request.POST['user_name']
-        user_email = request.POST['user_email']
-        subject = request.POST['subject']
-        message = request.POST['message']
+    if request.method == 'POST':
+        user_name = request.POST.get('user_name')
+        user_email = request.POST.get('user_email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
 
-        # send an e-mail
-        send_mail(
-            subject, # subject of the email
-            message, #the message
-            user_email, #from email
-            ['nahom.torba@bitscollege.edu.et'], # to email
-          )
-        # pass user_name to the contact.html
+        # Create and save UserMessage instance
+        user_message = UserMessage(
+            name=user_name,
+            email=user_email,
+            message=message,
+        )
+        user_message.save()
+
         return render(request, 'contact.html', {'user_name': user_name})
-    else:
-        return render(request, 'contact.html', {})
+
+    return render(request, 'contact.html')
 
 def about(request):
     return render(request, 'about.html')
