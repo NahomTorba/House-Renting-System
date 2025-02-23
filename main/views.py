@@ -133,6 +133,7 @@ def add_property(request):
         if form.is_valid():
             property = form.save(commit=False)
             property.user = request.user
+            property.available = 'available'
             property.save()
             print("Property saved successfully")
             return redirect('property-list')

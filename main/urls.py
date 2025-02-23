@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 
-from django.views.i18n import set_language
 
 urlpatterns = [
 path('', views.index, name="index"),
@@ -22,7 +21,7 @@ path('login/', views.Login, name='login'),
 path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 path('chapa/', views.chapa, name='chapa'),
 path('chapa/<int:property_id>/', views.chapa, name='chapa'),
-path('set_language/', set_language, name='set_language'),
+
 
 path('view_request/<int:property_id>/', views.view_requests, name='view_requests'),
 path('update_requests/<int:request_id>/', views.update_requests, name='update_requests'),

@@ -66,7 +66,7 @@ class Request(models.Model):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['title', 'description', 'property_type', 'property_for', 'available', 'image', 'bedrooms', 'bathrooms', 'price', 'area', 'location']
+        fields = ['title', 'description', 'property_type', 'property_for', 'image', 'bedrooms', 'bathrooms', 'price', 'area', 'location']
 
 
 class RequestForm(forms.ModelForm):
