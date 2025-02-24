@@ -43,7 +43,10 @@ def property_agent(request):
 
 @login_required(login_url='login')
 def property_list(request):
-    properties = Property.objects.filter(available='available')  # Filter to only available properties
+    properties = Property.objects.all()
+    
+    #getting user requests
+    user_requests = Request.objects.filter(user=request.user).values_list('property_id', flat=True)
     
     # Get filter values from the request
     property_type = request.GET.get('property_type', '').strip()
@@ -72,7 +75,7 @@ def property_list(request):
     
     no_results = not properties.exists()
 
-    return render(request, 'property-list.html', {'properties': properties, 'no_results': no_results})
+    return render(request, 'property-list.html', {'properties': properties, 'no_results': no_results, 'user_requests': user_requests,})
 
 @login_required(login_url='login')
 def property_type(request):
@@ -151,6 +154,8 @@ def edit_property(request, property_id):
     if request.method == 'POST':
         form = PropertyForm(request.POST, request.FILES, instance=property_obj)
         if form.is_valid():
+            updated_property = form.save(commit=False)
+            updated_property.available = request.POST.get('available')
             form.save()
             return redirect('property-list')
         else:
