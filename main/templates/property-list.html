@@ -194,7 +194,7 @@
                                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="property-item rounded overflow-hidden shadow-lg">
                                         <div class="position-relative overflow-hidden">
-                                            <p href=""><img class="img-fluid w-100" src="{{ property.image.url }}" alt="image of {{ property.title }}"></p>
+                                            <div style="height: 200px"><img class="h-100 w-100" style="object-fit: cover" src="{{ property.image.url }}" alt="image of {{ property.title }}"></div>
                                             <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-3 py-1 px-3"> For {{ property.property_for }} </div>
                                             <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-3 pt-1 px-3">{{ property.property_type }}</div>
                                         </div>

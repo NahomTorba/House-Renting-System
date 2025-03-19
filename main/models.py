@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
 
 # Create your models here.
 class SignUpForm(UserCreationForm):
@@ -88,3 +92,17 @@ class UserMessageForm(forms.ModelForm):
     class Meta:
         model = UserMessage
         fields = ['name', 'email', 'message']
+
+
+
+
+class CustomSetPasswordForm(SetPasswordForm):
+    def clean_new_password1(self):
+        password1 = self.cleaned_data.get('new_password1')
+        try:
+            # Validate the password using Django's validators
+            validate_password(password1, self.user)
+        except ValidationError as e:
+            # Raise validation errors for the form
+            self.add_error('new_password1', e)
+        return password1

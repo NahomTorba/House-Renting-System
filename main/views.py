@@ -4,11 +4,12 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import PropertyForm, Property, SignUpForm, Request, UserMessage, UserMessageForm
+from .models import PropertyForm, Property, SignUpForm, Request, UserMessage, UserMessageForm, CustomSetPasswordForm
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.views import PasswordResetConfirmView
 
 # Create your views here.
 
@@ -253,3 +254,8 @@ def send_request(request, property_id):
         return redirect('user_requests')
 
     return render(request, 'send_request.html', {'property': property_obj})
+
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
