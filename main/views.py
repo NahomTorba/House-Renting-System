@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.core.mail import send_mail
@@ -139,16 +140,19 @@ def add_property(request):
             property.user = request.user
             property.available = 'available'
             property.save()
-            print("Property saved successfully")
             return redirect('property-list')
         else:
-            print("Form is not valid")
-            print(form.errors)
-            return render(request, 'add_property.html', {'form': form})
+            return render(request, 'add_property.html', {
+                'form': form,
+                'GEBETA_API_KEY': settings.GEBETA_API_KEY
+            })
     else:
         form = PropertyForm()
-        return render(request, 'add_property.html', {'form': form})
-
+        return render(request, 'add_property.html', {
+            'form': form,
+            "GEBETA_API_KEY": settings.GEBETA_API_KEY
+        })
+    
 @login_required(login_url='login')
 def edit_property(request, property_id):
     property_obj = get_object_or_404(Property, id=property_id, user=request.user)
