@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'website/css/style1.css' %}">
     <link href="{% static 'website/img/icon-deal.png' %}" rel="icon">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <title>add-property</title>
 </head>
 
@@ -88,8 +90,38 @@
             <input type="submit" value="Submit">
         </div>
     </form>
+    <div id="map" style="height: 400px;">
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+    </div>
  </div>
 </div>
 </section>
 </body>
 </html>
+
+<script>
+
+    var map = L.map('map').setView([9.03, 38.74], 13); // Addis Ababa
+    
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(map);
+
+    var marker;
+
+map.on('click', function(e) {
+
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
+
+    if(marker){
+        map.removeLayer(marker);
+    }
+
+    marker = L.marker([lat, lng]).addTo(map);
+
+    document.getElementById("latitude").value = lat;
+    document.getElementById("longitude").value = lng;
+
+});
+    
+</script>

@@ -103,7 +103,7 @@ def Login(request):
             return redirect('/index')
         else:
             messages.error(request, 'Username or Password is incorrect')
-    return render(request, 'login.html')
+    return render(request, 'Login.html')
 
 def signup(request):
     if request.method == "POST":
